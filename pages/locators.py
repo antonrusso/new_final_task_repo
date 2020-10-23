@@ -22,3 +22,4 @@ class LoginPageLocators:
 class ProductPageLocators:
     ADD_TO_BASKET_FORM = (By.CSS_SELECTOR, "#add_to_basket_form")
     ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, ".btn-add-to-basket")
+    PRODUCT_AVAILABILITY = (By.CSS_SELECTOR, "[class=icon-ok]")

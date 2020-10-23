@@ -16,3 +16,7 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_FORM), \
             "Add to basket form is not shown"
 
+    def product_should_be_in_stock(self):
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_AVAILABILITY), \
+            "Product not in stock"
+
