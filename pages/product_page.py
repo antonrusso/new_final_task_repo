@@ -21,10 +21,15 @@ class ProductPage(BasePage):
             "Product NOT in stock"
 
     def success_message_after_product_added_to_the_basket(self):
-        assert self.is_element_present(*ProductPageLocators.SUSSESS_MESSAGE), \
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is NOT shown"
 
     def price_in_basket_equal_product_price(self):
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         price_in_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE_IN_BASKET).text
         assert product_price == price_in_basket, f"Product price and price in basket are different! Product price == {product_price}, price in basket == {price_in_basket}"
+
+    def success_message_should_have_correct_product_name(self):
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
+        product_name_success_message = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_IN_SUCCESS_MESSAGE).text
+        assert product_name == product_name_success_message, f"Product name and success message product name are different! Product name == {product_name}, Product name success message == {product_name_success_message}"
