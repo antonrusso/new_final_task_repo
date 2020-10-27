@@ -3,7 +3,6 @@ import pytest
 from .pages.locators import ProductPageLocators
 from .pages.basket_page import BasketPage
 
-
 """@pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
@@ -17,7 +16,26 @@ from .pages.basket_page import BasketPage
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])"""
 
 
-def test_guest_can_add_product_to_basket(browser): #(browser, link)
+class TestUserAddToBasketFromProductPage:
+    def test_user_can_add_product_to_basket(self, browser):  # (browser, link)
+        # link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        page.solve_quiz_and_get_code()
+        page.success_message_should_have_correct_product_name()
+        page.success_message_after_product_added_to_the_basket()
+        page.price_in_basket_equal_product_price()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+        page = ProductPage(browser, link)
+        page.open()
+        page.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE)
+
+
+def test_guest_can_add_product_to_basket(browser):  # (browser, link)
     # link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
@@ -29,16 +47,7 @@ def test_guest_can_add_product_to_basket(browser): #(browser, link)
     page.price_in_basket_equal_product_price()
 
 
-@pytest.mark.xfail
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
-    page = ProductPage(browser, link)
-    page.open()
-    page.add_product_to_basket()
-    page.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE)
-
-
-def test_guest_cant_see_success_message(browser):
+def test_user_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
     page.open()
@@ -76,9 +85,3 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.empty_basket_has_no_product()
     basket_page.message_that_basket_is_empty()
-
-
-
-
-
-
