@@ -2,6 +2,7 @@ from .pages.product_page import ProductPage
 import pytest
 from .pages.locators import ProductPageLocators
 from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
 
 """@pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
@@ -17,6 +18,16 @@ from .pages.basket_page import BasketPage
 
 
 class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.link = 'http://selenium1py.pythonanywhere.com/en-gb/accounts/login/'
+        page = LoginPage(browser, self.link)
+        page.open()
+        email = page.generate_fake_email()
+        password = page.generate_fake_password()
+        page.register_new_user(email=email, password=password)
+        page.should_be_authorized_user()
+
     def test_user_can_add_product_to_basket(self, browser):  # (browser, link)
         # link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"

@@ -5,6 +5,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
+from faker import Faker
 
 
 class BasePage:
@@ -68,5 +69,13 @@ class BasePage:
         except NoSuchElementException:
             return False
         return True
+
+    def generate_fake_email(self):
+        f = Faker()
+        return f.email()
+
+    def generate_fake_password(self):
+        f = Faker()
+        return f.password()
 
 
