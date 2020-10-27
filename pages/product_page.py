@@ -35,13 +35,4 @@ class ProductPage(BasePage):
         assert product_name == product_name_success_message, f"Product name and success message product name are different!" \
                 f"Product name == {product_name}, Product name success message == {product_name_success_message}"
 
-    def test_message_disappeared_after_adding_product_to_basket(self):
-        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is not disappear"
-
-    def test_guest_cant_see_success_message_after_adding_product_to_basket(self):
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is NOT shown"
-
-    def test_guest_cant_see_success_message(self):
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is shown before adding " \
-                                                                              "product to the basket "
 
