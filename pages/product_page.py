@@ -27,7 +27,7 @@ class ProductPage(BasePage):
     def price_in_basket_equal_product_price(self):
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         price_in_basket = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE_IN_BASKET).text
-        assert product_price == price_in_basket, f"Product price and price in basket are different! Product price == {product_price}, price in basket == {price_in_basket}"
+        assert product_price == price_in_basket, f"Product price and price in basket are different! Product price == {product_price}, price in basket == {price_in_basket} "
 
     def success_message_should_have_correct_product_name(self):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
